@@ -32,11 +32,23 @@ function App() {
     console.log(id);
     axios.delete(`/api/testDb/${id}`)
       .then((response) => {
-        console.log(response)
+        console.log(response);
       }).catch((error) => {
         console.error(error);
-      })
-  })
+      });
+    getData();
+  });
+
+  const handleUpdate = ((id: string) => {
+    console.log(id);
+    axios.post(`/api/updatename/${id}`)
+      .then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.error(error);
+      });
+    getData();
+  });
 
 
   return (
@@ -64,6 +76,11 @@ function App() {
               marginLeft: 15
             }}>X</a>
             <p>{item.name}, {item.text}, {item.details}, {item._id}</p>
+            <a onClick={() => handleUpdate(item._id.toString())} style={{
+              cursor: 'pointer',
+              color: 'green',
+              margin: 25
+            }}>Update</a>
           </div>
         ))
       }

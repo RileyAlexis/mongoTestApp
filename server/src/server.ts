@@ -53,6 +53,25 @@ app.get('/api/testDB', async (req, res) => {
     }
 });
 
+app.post('/api/updatename/:id', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const updatedData = await SomeData.findByIdAndUpdate(
+            id,
+            { name: "Riley Alexis updated data" },
+            { new: true }
+        );
+        if (!updatedData) {
+            res.status(404).json({ message: "Record not found" })
+        }
+        res.status(200).json({ message: "Record updated" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error updating record" });
+    }
+});
+
 app.delete('/api/testDB/:id', async (req: Request, res: Response) => {
 
     const id = req.params.id;
