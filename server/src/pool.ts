@@ -8,6 +8,9 @@ const mongoURI = process.env.MONGO_URI || "";
 export const pool = async (): Promise<void> => {
     try {
         await mongoose.connect(mongoURI);
+        if (process.env.NODE_ENV === 'production') {
+            mongoose.set('autoIndex', false);
+        }
         console.log("Connected to Mongo DB");
     } catch (error) {
         console.log("Error Connecting to Mongo DB", error);

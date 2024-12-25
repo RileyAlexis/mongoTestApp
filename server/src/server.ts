@@ -10,7 +10,6 @@ import SomeData from './models/modelSchema';
 //Types
 import { Request, Response } from 'express';
 import { SomeDataType } from './models/modelSchema';
-import { mongo } from 'mongoose';
 
 dotenv.config();
 
@@ -83,7 +82,6 @@ app.delete('/api/testDB/:id', async (req: Request, res: Response) => {
         if (!deleteLine) {
             res.status(404).json({ message: 'Record not found' });
         }
-
         res.status(200).json({ message: 'Record deleted' });
     } catch (error) {
         console.error(error);
