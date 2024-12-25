@@ -28,6 +28,16 @@ function App() {
       });
   })
 
+  const deleteRecord = ((id: string) => {
+    console.log(id);
+    axios.delete(`/api/testDb/${id}`)
+      .then((response) => {
+        console.log(response)
+      }).catch((error) => {
+        console.error(error);
+      })
+  })
+
 
   return (
     <div>
@@ -40,12 +50,24 @@ function App() {
       </form>
       <button onClick={getData}>Get Data</button>
       {allData.length > 0 &&
-        allData.map((item, index) => (
-          <div key={index}>
-            <p>{item.name}, {item.text}, {item.details}</p>
+        allData.map((item) => (
+          <div key={item._id.toString()} style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center'
+
+          }}>
+            <a onClick={() => deleteRecord(item._id.toString())} style={{
+              cursor: 'pointer',
+              color: 'red',
+              marginLeft: 15
+            }}>X</a>
+            <p>{item.name}, {item.text}, {item.details}, {item._id}</p>
           </div>
-        ))}
-    </div>
+        ))
+      }
+    </div >
   );
 }
 
